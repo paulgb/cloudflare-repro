@@ -33,10 +33,9 @@ impl DurableObject for MyDo {
     }
 
     async fn fetch(&mut self, req: Request) -> Result<Response> {
-        let upgrade = req.headers().get("Upgrade").expect("Upgrade header not set");
+        req.headers().get("Upgrade").expect("Upgrade header not set");
 
-        let WebSocketPair { client, server } = WebSocketPair::new()?;
-        //client.accept()?;
+        let WebSocketPair { client, .. } = WebSocketPair::new()?;
         let resp = Response::from_websocket(client)?;
         Ok(resp)
     }
