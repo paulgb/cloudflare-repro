@@ -1,5 +1,6 @@
 use worker::{
-    durable_object, event, Env, Request, Response, Result, RouteContext, Router, WebSocketPair,
+    durable_object, event, Env, Request, Response, Result, RouteContext, Router,
+    WebSocketPair,
 };
 
 const DURABLE_OBJECT: &str = "MY_DO";
@@ -33,9 +34,16 @@ impl DurableObject for MyDo {
     }
 
     async fn fetch(&mut self, req: Request) -> Result<Response> {
-        req.headers().get("Upgrade").expect("Upgrade header not set");
+        req.headers()
+            .get("Upgrade")
+            .expect("Upgrade header not set");
 
-        let WebSocketPair { client, .. } = WebSocketPair::new()?;
+        let WebSocketPair { client, server } = WebSocketPair::new()?;
+
+        server.accept()?;
+
+        server.send_with_bytes([1, 2, 3])?;
+
         let resp = Response::from_websocket(client)?;
         Ok(resp)
     }

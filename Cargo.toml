@@ -10,17 +10,8 @@ crate-type = ["cdylib", "rlib"]
 async-trait = "0.1.72"
 console_error_panic_hook = "0.1.7"
 js-sys = "0.3.57"
-wasm-bindgen = "=0.2.84"
-wasm-bindgen-futures = "=0.4.30"
+wasm-bindgen = "=0.2.86"
+wasm-bindgen-futures = "=0.4.36"
 
-# Broken
-worker = "0.0.17"
-worker-sys = "=0.0.9"
-
-# Broken
-# worker = "0.0.14"
-# worker-sys = "=0.0.8"
-
-# Works
-# worker = "0.0.13"
-# worker-sys = "=0.0.7"
+worker = "=0.0.18"
+worker-sys = "=0.0.10"
